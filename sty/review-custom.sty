@@ -49,9 +49,8 @@
 \if@tate
   \def\@cite#1{\tatechuyoko{[#1]}}
   \def\@biblabel#1{\tatechuyoko{[#1]}}
+  \patchcmd{\addcontentsline}{\thepage}{\tatechuyoko{\thepage}}{}{}
 \fi
-
-\patchcmd{\addcontentsline}{\thepage}{\tatechuyoko{\thepage}}{}{}
 
 \makeatletter
 
