@@ -25,25 +25,25 @@
   \jlreqsetup{frontmatter_pagebreak={}}% これを入れないと大扉前に白が入る
 \fi
 
-% 表紙90°回転？
-\if@reclscover
-  \ifdefined\review@coverimage
-    \ifrecls@coverfitpage
-       \def\review@coverimageoption{width=\paperwidth,height=\paperheight}
-    \fi
-    \def\reviewcoverpagecont{%
-      \if@tate
-        \expandafter\includefullpagegraphics\expandafter[angle=90,\review@coverimageoption]{\review@coverimage}
-      \else
-        \expandafter\includefullpagegraphics\expandafter[\review@coverimageoption]{\review@coverimage}
-      \fi
-      \cleardoublepage
-    }
-  \fi
-  \ifdefined\review@coverfile
-    \def\reviewcoverpagecont{\review@coverfile}
-  \fi
-\fi
+% % 表紙90°回転？
+% \if@reclscover
+%   \ifdefined\review@coverimage
+%     \ifrecls@coverfitpage
+%        \def\review@coverimageoption{width=\paperwidth,height=\paperheight}
+%     \fi
+%     \def\reviewcoverpagecont{%
+%       \if@tate
+%         \expandafter\includefullpagegraphics\expandafter[angle=90,\review@coverimageoption]{\review@coverimage}
+%       \else
+%         \expandafter\includefullpagegraphics\expandafter[\review@coverimageoption]{\review@coverimage}
+%       \fi
+%       \cleardoublepage
+%     }
+%   \fi
+%   \ifdefined\review@coverfile
+%     \def\reviewcoverpagecont{\review@coverfile}
+%   \fi
+% \fi
 
 % 各部のページは縦書きのまま
 \if@tate
