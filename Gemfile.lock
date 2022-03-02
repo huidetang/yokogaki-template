@@ -6,22 +6,22 @@ GEM
     math_ml (0.14)
       eim_xml
     mecab (0.996)
-    mini_portile2 (2.7.1)
-    nokogiri (1.13.0)
-      mini_portile2 (~> 2.7.0)
+    mini_portile2 (2.8.0)
+    nokogiri (1.13.3)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     pastel (0.8.0)
       tty-color (~> 0.5)
     psych (3.3.2)
     racc (1.6.0)
     rake (13.0.6)
-    review (5.3.0)
+    review (5.4.0)
       image_size
       rouge
       rubyzip
       tty-logger
     rexml (3.2.5)
-    rouge (3.27.0)
+    rouge (3.28.0)
     rubyzip (2.3.2)
     tty-color (0.6.0)
     tty-logger (0.6.0)
@@ -41,4 +41,4 @@ DEPENDENCIES
   rubyzip
 
 BUNDLED WITH
-   2.1.4
+   1.17.2

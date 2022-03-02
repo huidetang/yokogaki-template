@@ -21,7 +21,7 @@
 
 \IfFileExists{plautopatch.sty}{\RequirePackage{plautopatch}}{}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{review-jlreq}[2021/06/28 Re:VIEW 5.2 upLaTeX/LuaLaTeX class modified for jlreq.cls]
+\ProvidesClass{review-jlreq}[2021/09/07 Re:VIEW 5.3 upLaTeX/LuaLaTeX class modified for jlreq.cls]
 
 %% hook at end of reviewmacro
 \let\@endofreviewmacrohook\@empty
@@ -32,12 +32,15 @@
 \RequirePackage{fix-cm}%%\RequirePackage{fix-cm,exscale}
 \IfFileExists{latexrelease.sty}{}{\RequirePackage{fixltx2e}}
 
+%% amsmath: override \@ifstar with \new@ifnextchar in amsgen.sty
+\let\ltx@ifstar\@ifstar%%as \@ifstar of LaTeX kernel
+
 %% graphicx: added nosetpagesize
 \IfFileExists{platexrelease.sty}{%% is bundled in TL16 or higher release version
 \PassOptionsToPackage{nosetpagesize}{graphicx}%%for TL16 or higher version
 }{}
 
-\RequirePackage{xkeyval,everypage}
+\RequirePackage{xkeyval,everypage,ifthen}
 
 %% useful helpers
 \newcommand\recls@get@p@[2]{%
@@ -226,12 +229,29 @@
 \edef\grnchry@gutter{\evensidemargin}
 \newcommand*\includefullpagegraphics{%
   \clearpage
-  \@ifstar
+  \ltx@ifstar
     {\@includefullpagegraphics}%
     {\thispagestyle{empty}\@includefullpagegraphics}
 }
 
 \newcommand*\@includefullpagegraphics[2][]{%
+  \if@tate
+    \vbox to \textheight{%
+      \ifodd\c@page
+        \vskip-\dimexpr\evensidemargin - \topskip + 1in\relax
+      \else
+        \vskip-\dimexpr\oddsidemargin - \topskip + 1in\relax
+      \fi
+      \vbox to \paperwidth{\vss
+        \hbox to \textwidth{%
+          \hskip-\grnchry@head\relax
+          \hbox to \paperheight{\hss
+            \rotatebox{90}{\includegraphics[#1]{#2}}%
+          \hss}%
+        \hss}%
+      \vss}%
+    \vss}%
+  \else
     \vbox to \textheight{%
       \vskip-\grnchry@head
       \vbox to \paperheight{\vss
@@ -247,6 +267,7 @@
         \hss}%
       \vss}%
     \vss}%
+  \fi
   \clearpage
 }
 
@@ -341,6 +362,18 @@
 %% 代替定義
 \def\reviewleftcurlybrace{\{}
 \def\reviewrightcurlybrace{\}}
+
+%% 後注を見出しではなくchapter前にし、endnoteカウンタを新規に用意する
+\jlreqsetup{endnote_position=_chapter}
+\newcounter{reclsendnote}
+\setcounter{reclsendnote}{0}
+\if@tate
+  \renewcommand*{\thereclsendnote}{\jlreq@open@bracket@before@space\inhibitglue（\tatechuyoko{\@arabic\c@reclsendnote}）\inhibitglue}
+\else
+  \renewcommand*{\thereclsendnote}{(\arabic{reclsendnote}\hbox{}）\inhibitglue}
+\fi
+\def\jlreq@endnotecounter{reclsendnote}
+\ifthenelse{\equal{\jlreq@article@type}{article}}{}{\@addtoreset{reclsendnote}{chapter}}
 
 \listfiles
 \endinput
