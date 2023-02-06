@@ -29,9 +29,9 @@ def make_mdre(ch, p2r, path)
   elsif File.exist?(source.sub(/\.re\Z/, '.md')) # md file
     system("#{p2r} #{source.sub(/\.re\Z/, '.md')} > #{path}/#{ch}")
   elsif File.exist?(source.sub(/\.re\Z/, '.docx')) # md file
-    system("#{p2r} #{source.sub(/\.re\Z/, '.docx')} > #{path}/#{ch}")
+    system("#{p2r} #{source.sub(/\.re\Z/, '.docx')} > #{path}/#{ch} --extract-media=images")
   elsif File.exist?(source.sub(/\.re\Z/, '.odt')) # md file
-    system("#{p2r} #{source.sub(/\.re\Z/, '.odt')} > #{path}/#{ch}")
+    system("#{p2r} #{source.sub(/\.re\Z/, '.odt')} > #{path}/#{ch} --extract-media=images")
   end
 end
 
